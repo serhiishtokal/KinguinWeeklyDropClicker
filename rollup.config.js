@@ -19,7 +19,10 @@ const header = `// ==UserScript==
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinguin.net
 // @updateURL    https://github.com/serhiishtokal/KinguinWeeklyDropClicker/raw/refs/heads/main/dist/kinguin-kings-drop.user.js
 // @downloadURL  https://github.com/serhiishtokal/KinguinWeeklyDropClicker/raw/refs/heads/main/dist/kinguin-kings-drop.user.js
-// @grant        none
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @grant        GM_registerMenuCommand
+// @grant        GM_unregisterMenuCommand
 // @run-at       document-idle
 // ==/UserScript==
 

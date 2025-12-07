@@ -6,6 +6,7 @@
 import { waitForElement, log } from '../utils/dom.js';
 import { humanLikeClick, humanLikeType, humanDelay, sleep } from '../utils/simulation.js';
 import { highlightElement, injectStyles, createOverlay } from '../utils/styles.js';
+import { getSetting } from '../settings/index.js';
 
 /**
  * Selectors for checkout page elements
@@ -214,7 +215,11 @@ async function setAndPay(value = '999', options = {}) {
 export async function initCheckoutPage() {
   log('Initializing checkout page handler...');
   
-  createOverlay('KinguinClicker: Checkout - Automating...', {
+  // Read the auto-click setting
+  const shouldAutoClick = getSetting('autoClickPay');
+  log(`Auto-click pay setting: ${shouldAutoClick}`);
+  
+  createOverlay(`KinguinClicker: Checkout - ${shouldAutoClick ? 'Auto-Pay' : 'Manual Pay'}`, {
     backgroundColor: 'rgba(76, 175, 80, 0.9)',
     autoRemove: 2000,
   });
@@ -223,7 +228,7 @@ export async function initCheckoutPage() {
   await sleep(2000);
 
   // Execute the main flow
-  const success = await setAndPay('999', { shouldClick: false });
+  const success = await setAndPay('999', { shouldClick: shouldAutoClick });
   
   if (success) {
     createOverlay('KinguinClicker: Ready to Pay!', {

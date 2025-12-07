@@ -6,6 +6,7 @@
 import { detectPageType, PageType, getRouteDescription } from './config/routes.js';
 import { log } from './utils/dom.js';
 import { createOverlay } from './utils/styles.js';
+import { registerMenuCommand } from './settings/menu.js';
 
 // Page handler imports
 import { initCheckoutPage } from './pages/checkout.js';
@@ -63,6 +64,9 @@ function init() {
  * Initialize when DOM is ready
  */
 function bootstrap() {
+  // Register Tampermonkey menu command for settings toggle
+  registerMenuCommand();
+  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
