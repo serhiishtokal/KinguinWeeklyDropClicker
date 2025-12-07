@@ -17,6 +17,8 @@ const header = `// ==UserScript==
 // @match        *://www.kinguin.net/category/*
 // @match        *://www.kinguin.net/app/dashboard/subscription*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinguin.net
+// @updateURL    https://github.com/serhiishtokal/KinguinWeeklyDropClicker/raw/refs/heads/main/dist/kinguin-kings-drop.user.js
+// @downloadURL  https://github.com/serhiishtokal/KinguinWeeklyDropClicker/raw/refs/heads/main/dist/kinguin-kings-drop.user.js
 // @grant        none
 // @run-at       document-idle
 // ==/UserScript==
