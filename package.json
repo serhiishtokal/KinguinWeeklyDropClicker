@@ -1,0 +1,22 @@
+{
+  "name": "kinguin-clicker",
+  "version": "1.0.0",
+  "description": "Tampermonkey script to automate Kinguin.net checkout, game pages, and dashboard",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c --environment BUILD:production",
+    "dev": "rollup -c --watch --environment BUILD:development",
+    "clean": "rimraf dist/"
+  },
+  "keywords": ["tampermonkey", "userscript", "kinguin", "automation"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.9.0"
+  }
+}

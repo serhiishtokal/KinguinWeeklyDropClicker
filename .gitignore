@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+dist/*
+!dist/kinguin-clicker.user.js
+.idea/
+/.kilocode/mcp.json
