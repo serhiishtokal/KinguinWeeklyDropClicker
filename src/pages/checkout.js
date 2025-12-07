@@ -94,33 +94,75 @@ async function clickPayButton() {
  * @returns {Promise<boolean>} Success status
  */
 async function highlightPayButton() {
-  const button = await waitForElement(SELECTORS.PAY_BUTTON, { timeout: 5000 });
+  const getButton = () => document.querySelector(SELECTORS.PAY_BUTTON);
+  
+  // Wait for initial button
+  let button = await waitForElement(SELECTORS.PAY_BUTTON, { timeout: 5000 });
   if (!button) {
-    log('highlightPayButton: pay button not found', SELECTORS.PAY_BUTTON);
+    console.log('[KingsDrop] Pay button not found');
     return false;
   }
 
   // Inject enhanced pulse animation
   injectStyles(PAY_BUTTON_PULSE_CSS, 'kinguin-pay-pulse-animation');
 
-  // Apply highly visible highlighting styles
-  Object.assign(button.style, {
-    transition: 'all 0.3s ease',
-    backgroundColor: '#ff3333',
-    background: 'linear-gradient(135deg, #ff4444 0%, #cc0000 50%, #ff4444 100%)',
-    border: '4px solid #ffff00',
-    borderRadius: '8px',
-    outline: '3px solid #ff0000',
-    outlineOffset: '2px',
-    color: 'white',
-    fontWeight: 'bold',
-    textShadow: '0 0 5px #000, 0 0 10px #ff0',
-    animation: 'kinguin-pay-pulse 1s ease-in-out infinite',
-    position: 'relative',
-    zIndex: '9999',
-  });
+  // Function to apply styles to a button instance
+  const applyHighlight = (btn) => {
+    // Avoid re-applying if already marked (unless styles were stripped)
+    if (btn.dataset.kingsDropHighlighted === 'true' && btn.style.animation) return;
+    
+    console.log('[KingsDrop] Applying highlight to Pay button');
+    
+    const styles = {
+      'transition': 'all 0.3s ease',
+      'background-color': '#ff3333',
+      'background': 'linear-gradient(135deg, #ff4444 0%, #cc0000 50%, #ff4444 100%)',
+      'border': '4px solid #ffff00',
+      'border-radius': '8px',
+      'outline': '3px solid #ff0000',
+      'outline-offset': '2px',
+      'color': 'white',
+      'font-weight': 'bold',
+      'text-shadow': '0 0 5px #000, 0 0 10px #ff0',
+      'animation': 'kinguin-pay-pulse 1s ease-in-out infinite',
+      'position': 'relative',
+      'z-index': '9999',
+    };
 
-  log('Pay button highlighted with enhanced visibility');
+    // Apply styles with !important priority
+    Object.entries(styles).forEach(([prop, value]) => {
+      btn.style.setProperty(prop, value, 'important');
+    });
+    
+    btn.dataset.kingsDropHighlighted = 'true';
+  };
+
+  // Apply immediately to the found button
+  applyHighlight(button);
+
+  // Persistent check loop to handle framework re-renders (React/Vue often replace elements)
+  // Run for 10 seconds, checking every 200ms
+  const duration = 10000;
+  const interval = 200;
+  const startTime = Date.now();
+
+  const persistenceInterval = setInterval(() => {
+    if (Date.now() - startTime > duration) {
+      clearInterval(persistenceInterval);
+      return;
+    }
+
+    const currentBtn = getButton();
+    if (currentBtn) {
+      // Check if it's a new button or if styles were reset
+      if (currentBtn.dataset.kingsDropHighlighted !== 'true' || !currentBtn.style.animation) {
+        console.log('[KingsDrop] Detected button reset/replacement, re-applying highlight');
+        applyHighlight(currentBtn);
+      }
+    }
+  }, interval);
+
+  console.log('[KingsDrop] Pay button highlight activated with persistence');
   return true;
 }
 
