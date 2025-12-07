@@ -1,5 +1,5 @@
 /**
- * Kinguin Auto-Clicker - Main Entry Point
+ * Kinguin Kings Drop - Main Entry Point
  * Detects current page and initializes appropriate handler
  */
 
@@ -51,7 +51,7 @@ function init() {
     log(`No handler registered for page type: ${pageType}`);
     // Show status overlay only on known pages without handlers yet
     if (pageType !== PageType.UNKNOWN) {
-      createOverlay(`KinguinClicker: ${routeDescription} (handler pending)`, {
+      createOverlay(`KingsDrop: ${routeDescription} (handler pending)`, {
         backgroundColor: 'rgba(33, 150, 243, 0.9)',
         autoRemove: 3000
       });

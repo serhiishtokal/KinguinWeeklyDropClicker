@@ -2,6 +2,6 @@ node_modules/
 *.log
 .DS_Store
 dist/*
-!dist/kinguin-clicker.user.js
+!dist/kinguin-kings-drop.user.js
 .idea/
 /.kilocode/mcp.json

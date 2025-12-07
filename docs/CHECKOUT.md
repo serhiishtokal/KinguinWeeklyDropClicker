@@ -2,9 +2,9 @@
 
 ## Purpose and Use Case
 
-The checkout page handler automates the final step of the KinguinPass purchase workflow. It fills in the Kinguin balance input field and highlights the Pay button for easy manual confirmation.
+The checkout page handler automates the final step of the King's Drop purchase workflow. It fills in the Kinguin balance input field and highlights the Pay button for easy manual confirmation.
 
-**URL Pattern:** `https://kinguin.net/checkout*`
+**URL Pattern:** `https://www.kinguin.net/new-checkout/review*`
 
 **Source File:** [`src/pages/checkout.js`](../src/pages/checkout.js)
 
@@ -92,9 +92,9 @@ The checkout page displays floating status messages:
 
 | State | Message | Color | Duration |
 |-------|---------|-------|----------|
-| Starting | "KinguinClicker: Checkout - Automating..." | Green | 2000ms |
-| Success | "KinguinClicker: Ready to Pay!" | Green | 3000ms |
-| Failure | "KinguinClicker: Could not find checkout elements" | Red | 5000ms |
+| Starting | "KingsDrop: Checkout - Automating..." | Green | 2000ms |
+| Success | "KingsDrop: Ready to Pay!" | Green | 3000ms |
+| Failure | "KingsDrop: Could not find checkout elements" | Red | 5000ms |
 
 ### Pay Button Highlight Animation
 
@@ -151,7 +151,7 @@ The main entry point called by the router.
 export async function initCheckoutPage() {
   log('Initializing checkout page handler...');
   
-  createOverlay('KinguinClicker: Checkout - Automating...', {
+  createOverlay('KingsDrop: Checkout - Automating...', {
     backgroundColor: 'rgba(76, 175, 80, 0.9)',
     autoRemove: 2000,
   });
@@ -260,12 +260,12 @@ The checkout handler gracefully handles failures:
 
 ## Console Logging
 
-All actions are logged with the `[KinguinClicker]` prefix:
+All actions are logged with the `[KingsDrop]` prefix:
 
 ```
-[KinguinClicker] Initializing checkout page handler...
-[KinguinClicker] setMaxValueForKinguinBalance: set value to 999
-[KinguinClicker] Pay button highlighted with enhanced visibility
+[KingsDrop] Initializing checkout page handler...
+[KingsDrop] setMaxValueForKinguinBalance: set value to 999
+[KingsDrop] Pay button highlighted with enhanced visibility
 ```
 
 ## Related Documentation

@@ -10,7 +10,7 @@ const DEBUG = true;
  */
 export function log(...args) {
   if (DEBUG) {
-    console.log('[KinguinClicker]', ...args);
+    console.log('[KingsDrop]', ...args);
   }
 }
 

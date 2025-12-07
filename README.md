@@ -1,6 +1,6 @@
-# Kinguin Auto-Clicker
+# Kinguin Kings Drop
 
-A Tampermonkey userscript that automates common tasks on Kinguin.net, including checkout, game pages, and dashboard subscriptions.
+A Tampermonkey userscript that automates the weekly Kinguin King's Drop subscription workflow on Kinguin.net.
 
 ## Documentation
 
@@ -10,13 +10,13 @@ For detailed documentation on how the script works, see the [`docs/`](./docs/) f
 |----------|-------------|
 | [Overview](./docs/OVERVIEW.md) | General overview, workflow explanation, and safety considerations |
 | [Checkout Page](./docs/CHECKOUT.md) | Checkout automation, balance input, Pay button highlighting |
-| [Game Page](./docs/GAME-PAGE.md) | KinguinPass selection, glitch detection, Add to Cart automation |
+| [Game Page](./docs/GAME-PAGE.md) | King's Drop product selection, glitch detection, Add to Cart automation |
 | [Dashboard](./docs/DASHBOARD.md) | Subscription section navigation, "Get Now" button automation |
 
 ## Features
 
 - **Checkout Page**: Automatically fills maximum Kinguin balance and highlights the Pay button
-- **Game Page**: Clicks KinguinPass price option, detects "glitch" states, and handles Add to Cart
+- **Game Page**: Handles King's Drop product pages with subscription purchase mode
 - **Dashboard**: Scrolls to subscription section and clicks Get Now button
 - **Visual Feedback**: Animated highlights and status overlays for user awareness
 
@@ -24,7 +24,7 @@ For detailed documentation on how the script works, see the [`docs/`](./docs/) f
 
 ### Option 1: Direct Install
 1. Install [Tampermonkey](https://www.tampermonkey.net/) browser extension
-2. Open `dist/kinguin-clicker.user.js`
+2. Open `dist/kinguin-kings-drop.user.js`
 3. Copy all contents
 4. In Tampermonkey: Dashboard → Create new script → Paste → Save
 
@@ -33,7 +33,7 @@ For detailed documentation on how the script works, see the [`docs/`](./docs/) f
 npm install
 npm run build
 ```
-Then install `dist/kinguin-clicker.user.js` in Tampermonkey.
+Then install `dist/kinguin-kings-drop.user.js` in Tampermonkey.
 
 ## Development
 
@@ -107,9 +107,9 @@ const PAGE_HANDLERS = {
 
 | Page | URL Pattern | Features |
 |------|-------------|----------|
-| Checkout | `kinguin.net/checkout*` | Balance fill, Pay button highlight |
-| Game Page | `kinguin.net/category/*` | KinguinPass selection, glitch detection |
-| Dashboard | `kinguin.net/dashboard/subscriptions*` | Auto-scroll, Get Now click |
+| Checkout | `kinguin.net/new-checkout/review*` | Balance fill, Pay button highlight |
+| Game Page | `kinguin.net/category/*` | King's Drop selection, glitch detection |
+| Dashboard | `kinguin.net/app/dashboard/subscription*` | Auto-scroll, Get Now click |
 
 ## Shared Utilities
 

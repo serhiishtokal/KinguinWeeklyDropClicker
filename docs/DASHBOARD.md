@@ -2,9 +2,9 @@
 
 ## Purpose and Use Case
 
-The dashboard page handler automates the subscription initiation process on the Kinguin dashboard. It scrolls to the subscription section and clicks the "Get Now" button to start the KinguinPass subscription workflow.
+The dashboard page handler automates the subscription initiation process on the Kinguin dashboard. It scrolls to the subscription section and clicks the "Get Now" button to start the King's Drop subscription workflow.
 
-**URL Pattern:** `https://kinguin.net/dashboard/subscriptions*`
+**URL Pattern:** `https://www.kinguin.net/app/dashboard/subscription*`
 
 **Source File:** [`src/pages/dashboard.js`](../src/pages/dashboard.js)
 
@@ -19,10 +19,10 @@ The dashboard page handler automates the subscription initiation process on the 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │  1. Page Load Detection                                          │
-│     └── URL matches: kinguin.net/dashboard/subscriptions*        │
+│     └── URL matches: kinguin.net/app/dashboard/subscription*     │
 ├──────────────────────────────────────────────────────────────────┤
 │  2. initDashboardPage() called                                   │
-│     └── Shows overlay: "KinguinClicker: Dashboard - Automating..."│
+│     └── Shows overlay: "KingsDrop: Dashboard - Automating..."    │
 ├──────────────────────────────────────────────────────────────────┤
 │  3. Wait 500ms for page stabilization                            │
 ├──────────────────────────────────────────────────────────────────┤
@@ -34,8 +34,8 @@ The dashboard page handler automates the subscription initiation process on the 
 │     └── e. Click button with human-like interaction              │
 ├──────────────────────────────────────────────────────────────────┤
 │  5. Display result overlay                                       │
-│     ├── Success: "KinguinClicker: Subscription Activated!"       │
-│     └── Failure: "KinguinClicker: Could not find subscription..."|
+│     ├── Success: "KingsDrop: Subscription Activated!"            │
+│     └── Failure: "KingsDrop: Could not find subscription..."     │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -128,7 +128,7 @@ The main entry point called by the router.
 export async function initDashboardPage() {
   log('Initializing dashboard page handler...');
 
-  createOverlay('KinguinClicker: Dashboard - Automating...', {
+  createOverlay('KingsDrop: Dashboard - Automating...', {
     backgroundColor: 'rgba(76, 175, 80, 0.9)',
     autoRemove: 2000,
   });
@@ -236,9 +236,9 @@ async function scrollAndClickGetNow() {
 
 | State | Message | Color | Duration |
 |-------|---------|-------|----------|
-| Starting | "KinguinClicker: Dashboard - Automating..." | Green | 2000ms |
-| Success | "KinguinClicker: Subscription Activated!" | Green | 3000ms |
-| Failure | "KinguinClicker: Could not find subscription elements" | Red | 5000ms |
+| Starting | "KingsDrop: Dashboard - Automating..." | Green | 2000ms |
+| Success | "KingsDrop: Subscription Activated!" | Green | 3000ms |
+| Failure | "KingsDrop: Could not find subscription elements" | Red | 5000ms |
 
 ## Code Examples for Customization
 
@@ -304,21 +304,21 @@ The dashboard handler handles failures gracefully:
 
 ## Console Logging
 
-All actions are logged with the `[KinguinClicker]` prefix:
+All actions are logged with the `[KingsDrop]` prefix:
 
 ```
-[KinguinClicker] Initializing dashboard page handler...
-[KinguinClicker] Scrolled to subscription section
-[KinguinClicker] Found "Get Now" button
-[KinguinClicker] Clicked "Get Now" button successfully
-[KinguinClicker] scrollAndClickGetNow: completed successfully
+[KingsDrop] Initializing dashboard page handler...
+[KingsDrop] Scrolled to subscription section
+[KingsDrop] Found "Get Now" button
+[KingsDrop] Clicked "Get Now" button successfully
+[KingsDrop] scrollAndClickGetNow: completed successfully
 ```
 
 Or on failure:
 
 ```
-[KinguinClicker] scrollToSubscriptionSection: element not found //*[@id="c-page__content"]/div/div[2]/div/div/div/div[1]/section
-[KinguinClicker] scrollAndClickGetNow: failed to find subscription section
+[KingsDrop] scrollToSubscriptionSection: element not found //*[@id="c-page__content"]/div/div[2]/div/div/div/div[1]/section
+[KingsDrop] scrollAndClickGetNow: failed to find subscription section
 ```
 
 ## Integration with Other Pages

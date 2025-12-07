@@ -8,7 +8,7 @@
  * @param {string} id - Style element ID (prevents duplicates)
  * @returns {HTMLStyleElement}
  */
-export function injectStyles(css, id = 'kinguin-clicker-styles') {
+export function injectStyles(css, id = 'kings-drop-styles') {
   // Remove existing style if present
   const existing = document.getElementById(id);
   if (existing) {
@@ -27,30 +27,30 @@ export function injectStyles(css, id = 'kinguin-clicker-styles') {
  * Default keyframe animations for visual feedback
  */
 export const DEFAULT_ANIMATIONS = `
-  @keyframes kinguin-pulse {
+  @keyframes kings-drop-pulse {
     0% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.7); }
     70% { box-shadow: 0 0 0 10px rgba(255, 193, 7, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
   }
   
-  @keyframes kinguin-blink {
+  @keyframes kings-drop-blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
   }
   
-  @keyframes kinguin-glow-success {
+  @keyframes kings-drop-glow-success {
     0% { box-shadow: 0 0 5px #4CAF50; }
     50% { box-shadow: 0 0 20px #4CAF50; }
     100% { box-shadow: 0 0 5px #4CAF50; }
   }
   
-  @keyframes kinguin-glow-warning {
+  @keyframes kings-drop-glow-warning {
     0% { box-shadow: 0 0 5px #FF9800; }
     50% { box-shadow: 0 0 20px #FF9800; }
     100% { box-shadow: 0 0 5px #FF9800; }
   }
   
-  @keyframes kinguin-glow-error {
+  @keyframes kings-drop-glow-error {
     0% { box-shadow: 0 0 5px #f44336; }
     50% { box-shadow: 0 0 20px #f44336; }
     100% { box-shadow: 0 0 5px #f44336; }
@@ -63,19 +63,19 @@ export const DEFAULT_ANIMATIONS = `
 const HIGHLIGHT_STYLES = {
   success: {
     border: '3px solid #4CAF50',
-    animation: 'kinguin-glow-success 1.5s infinite',
+    animation: 'kings-drop-glow-success 1.5s infinite',
   },
   warning: {
     border: '3px solid #FF9800',
-    animation: 'kinguin-glow-warning 1.5s infinite',
+    animation: 'kings-drop-glow-warning 1.5s infinite',
   },
   error: {
     border: '3px solid #f44336',
-    animation: 'kinguin-glow-error 1.5s infinite',
+    animation: 'kings-drop-glow-error 1.5s infinite',
   },
   attention: {
     border: '3px solid #FFC107',
-    animation: 'kinguin-pulse 1.5s infinite',
+    animation: 'kings-drop-pulse 1.5s infinite',
   },
 };
 
@@ -89,7 +89,7 @@ export function highlightElement(element, type = 'attention', duration = 0) {
   if (!element) return;
   
   // Ensure animations are injected
-  injectStyles(DEFAULT_ANIMATIONS, 'kinguin-clicker-animations');
+  injectStyles(DEFAULT_ANIMATIONS, 'kings-drop-animations');
   
   const styles = HIGHLIGHT_STYLES[type] || HIGHLIGHT_STYLES.attention;
   const originalStyles = {
@@ -122,11 +122,11 @@ export function createOverlay(text, options = {}) {
   } = options;
   
   // Remove existing overlay
-  const existing = document.getElementById('kinguin-clicker-overlay');
+  const existing = document.getElementById('kings-drop-overlay');
   if (existing) existing.remove();
   
   const overlay = document.createElement('div');
-  overlay.id = 'kinguin-clicker-overlay';
+  overlay.id = 'kings-drop-overlay';
   overlay.textContent = text;
   
   const positions = {
@@ -163,6 +163,6 @@ export function createOverlay(text, options = {}) {
  * Remove the status overlay
  */
 export function removeOverlay() {
-  const overlay = document.getElementById('kinguin-clicker-overlay');
+  const overlay = document.getElementById('kings-drop-overlay');
   if (overlay) overlay.remove();
 }

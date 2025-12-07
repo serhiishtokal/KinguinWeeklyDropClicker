@@ -1,17 +1,17 @@
-# Kinguin Auto-Clicker Overview
+# Kinguin Kings Drop Overview
 
-## What is KinguinClicker?
+## What is Kings Drop?
 
-KinguinClicker is a Tampermonkey userscript designed to automate repetitive tasks within the **KinguinPass subscription workflow** on Kinguin.net. It streamlines the process of subscribing to KinguinPass, selecting subscription pricing options, and completing checkout with Kinguin balance.
+Kings Drop is a Tampermonkey userscript designed to automate the weekly **King's Drop subscription workflow** on Kinguin.net. It streamlines the process of claiming your weekly King's Drop game, handling the subscription purchase flow, and completing checkout with Kinguin balance.
 
 ## Purpose and Use Case
 
-### KinguinPass Subscription Workflow
+### King's Drop Subscription Workflow
 
-KinguinPass is Kinguin's subscription service that offers discounts on game purchases. The typical workflow for using KinguinPass involves:
+King's Drop is Kinguin's weekly subscription benefit that offers free or discounted games. The typical workflow for claiming your weekly King's Drop involves:
 
-1. **Starting a subscription** from the dashboard
-2. **Selecting the KinguinPass price** on a game's product page
+1. **Starting from the dashboard** subscription page
+2. **Selecting the subscription price** on the King's Drop product page
 3. **Completing checkout** using Kinguin balance
 
 This script automates each step, saving time and reducing repetitive clicking.
@@ -28,21 +28,21 @@ This script automates each step, saving time and reducing repetitive clicking.
 └─────────────────────┘     └─────────────────────┘     └─────────────────────┘
 ```
 
-### 1. Dashboard Page (`/dashboard/subscriptions`)
+### 1. Dashboard Page (`/app/dashboard/subscription`)
 
-The entry point for managing KinguinPass subscriptions. The script:
+The entry point for managing King's Drop subscriptions. The script:
 - Automatically scrolls to the subscription section
 - Clicks the "Get Now" button to initiate the subscription process
 
-### 2. Game Page (`/category/*/product/*`)
+### 2. Game Page (`/category/[id]/[name]`)
 
-Individual product pages where you select the KinguinPass pricing option. The script:
-- Clicks the KinguinPass price button to select the discounted price
+King's Drop product pages where you select the subscription pricing option. The script:
+- Clicks the subscription price button to select the discounted price
 - Waits for the UI to update
 - Clicks the "Add to Cart" button
 - **Detects glitch states** where the button incorrectly shows "SUBSCRIBE AND ADD TO CART"
 
-### 3. Checkout Page (`/checkout`)
+### 3. Checkout Page (`/new-checkout/review`)
 
 The final step where you complete the purchase. The script:
 - Automatically fills in the maximum Kinguin balance value (`999`)
@@ -62,9 +62,9 @@ The routing system in [`routes.js`](../src/config/routes.js:19) uses regex patte
 
 | Page Type | URL Pattern | Handler |
 |-----------|-------------|---------|
-| Dashboard | `kinguin.net/dashboard/subscriptions*` | [`initDashboardPage()`](../src/pages/dashboard.js:104) |
+| Dashboard | `kinguin.net/app/dashboard/subscription*` | [`initDashboardPage()`](../src/pages/dashboard.js:104) |
 | Game Page | `kinguin.net/category/*` | [`initGamePage()`](../src/pages/game-page.js:208) |
-| Checkout | `kinguin.net/checkout*` | [`initCheckoutPage()`](../src/pages/checkout.js:169) |
+| Checkout | `kinguin.net/new-checkout/review*` | [`initCheckoutPage()`](../src/pages/checkout.js:169) |
 
 ## Safety Considerations
 
@@ -101,7 +101,7 @@ The game page includes **glitch detection** to prevent accidental subscriptions.
 All actions provide clear visual feedback via:
 - **Status overlays** - Floating messages in the bottom-right corner
 - **Element highlighting** - Pulsing borders on interactive elements
-- **Console logging** - Detailed logs prefixed with `[KinguinClicker]`
+- **Console logging** - Detailed logs prefixed with `[KingsDrop]`
 
 ### Graceful Failure
 

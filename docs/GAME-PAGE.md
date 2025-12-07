@@ -2,17 +2,16 @@
 
 ## Purpose and Use Case
 
-The game page handler automates KinguinPass price selection and adding items to cart on individual product pages. It includes a critical **glitch detection** feature that prevents accidental subscription purchases when the UI is in an incorrect state.
+The game page handler automates King's Drop price selection and adding items to cart on subscription product pages. It includes a critical **glitch detection** feature that prevents accidental subscription purchases when the UI is in an incorrect state.
 
-**URL Patterns:**
-- `https://kinguin.net/category/*/product/*` - Individual product pages
-- `https://kinguin.net/category/*` - Category/listing pages
+**URL Pattern:**
+- `https://www.kinguin.net/category/[id]/[name]` - Game product pages
 
 **Source File:** [`src/pages/game-page.js`](../src/pages/game-page.js)
 
 ## What It Does
 
-1. **Clicks the KinguinPass price option** to select the discounted subscription price
+1. **Clicks the subscription price option** to select the discounted King's Drop price
 2. **Waits for the UI to update** and become interactive
 3. **Detects glitch states** that could cause unwanted subscriptions
 4. **Adds the item to cart** (or shows a warning if glitch detected)
@@ -22,15 +21,15 @@ The game page handler automates KinguinPass price selection and adding items to 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │  1. Page Load Detection                                          │
-│     └── URL matches: kinguin.net/category/*                      │
+│     └── URL matches: kinguin.net/category/[id]/*                 │
 ├──────────────────────────────────────────────────────────────────┤
 │  2. initGamePage() called                                        │
-│     └── Shows overlay: "KinguinClicker: Game Page - Automating..."│
+│     └── Shows overlay: "KingsDrop: Game Page - Automating..."    │
 ├──────────────────────────────────────────────────────────────────┤
 │  3. Wait 500ms for page stabilization                            │
 ├──────────────────────────────────────────────────────────────────┤
 │  4. selectKinguinPassAndAddToCart() execution                    │
-│     ├── a. Click KinguinPass price button (via XPath)            │
+│     ├── a. Click subscription price button (via XPath)           │
 │     ├── b. Wait for element to be enabled (2000ms timeout)       │
 │     ├── c. Human-like delay (100-400ms)                          │
 │     ├── d. Find Add to Cart button                               │
@@ -40,9 +39,9 @@ The game page handler automates KinguinPass price selection and adding items to 
 │     └── f. Click Add to Cart button                              │
 ├──────────────────────────────────────────────────────────────────┤
 │  5. Display result overlay                                       │
-│     ├── Success: "KinguinClicker: Added to Cart!"                │
+│     ├── Success: "KingsDrop: Added to Cart!"                     │
 │     ├── Glitch: "⚠️ GLITCH DETECTED - Refresh the page!"         │
-│     └── Failure: "KinguinClicker: Could not complete..."         │
+│     └── Failure: "KingsDrop: Could not complete..."              │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -50,7 +49,7 @@ The game page handler automates KinguinPass price selection and adding items to 
 
 ### Why It Exists
 
-Sometimes the Kinguin website has a UI glitch where, even after selecting the KinguinPass price, the "Add to Cart" button still shows "SUBSCRIBE AND ADD TO CART" text. Clicking this button would **initiate a new subscription** instead of just adding the item to cart.
+Sometimes the Kinguin website has a UI glitch where, even after selecting the subscription price, the "Add to Cart" button still shows "SUBSCRIBE AND ADD TO CART" text. Clicking this button would **initiate a new subscription** instead of just adding the item to cart.
 
 ### How It Works
 
@@ -110,14 +109,14 @@ When a glitch is detected, the script:
 
 | Element | XPath | Fallback CSS |
 |---------|-------|--------------|
-| KinguinPass Price Button | `//*[@id="main-offer-wrapper"]/div[1]/button` | N/A |
+| Subscription Price Button | `//*[@id="main-offer-wrapper"]/div[1]/button` | N/A |
 | Add to Cart Button | `//*[@id="main-offer-wrapper"]/div[2]/div/div/div/button` | `button[data-cy="standardCheckout"]` |
 
 ### Selector Definitions
 
 ```javascript
 const SELECTORS = {
-  KINGUIN_PASS_PRICE_XPATH: '//*[@id="main-offer-wrapper"]/div[1]/button',
+  SUBSCRIPTION_PRICE_XPATH: '//*[@id="main-offer-wrapper"]/div[1]/button',
   ADD_TO_CART_XPATH: '//*[@id="main-offer-wrapper"]/div[2]/div/div/div/button',
   ADD_TO_CART_CSS: 'button[data-cy="standardCheckout"]',
 };
@@ -128,7 +127,7 @@ const SELECTORS = {
 ### Why XPath?
 
 XPath is used because:
-1. The KinguinPass price button doesn't have a reliable CSS selector
+1. The subscription price button doesn't have a reliable CSS selector
 2. The DOM structure is nested and complex
 3. XPath allows precise navigation to specific elements
 
@@ -203,7 +202,7 @@ The main entry point called by the router.
 export async function initGamePage() {
   log('Initializing game page handler...');
 
-  createOverlay('KinguinClicker: Game Page - Automating...', {
+  createOverlay('KingsDrop: Game Page - Automating...', {
     backgroundColor: 'rgba(76, 175, 80, 0.9)',
     autoRemove: 2000,
   });
@@ -217,20 +216,20 @@ export async function initGamePage() {
 
 **Location:** [`game-page.js:208-239`](../src/pages/game-page.js:208)
 
-### `clickKinguinPassPrice()`
+### `clickSubscriptionPrice()`
 
-Clicks the KinguinPass price option button.
+Clicks the subscription price option button.
 
 ```javascript
-async function clickKinguinPassPrice() {
-  const el = $x(SELECTORS.KINGUIN_PASS_PRICE_XPATH);
+async function clickSubscriptionPrice() {
+  const el = $x(SELECTORS.SUBSCRIPTION_PRICE_XPATH);
   if (!el) {
-    log('clickKinguinPassPrice: KinguinPass price option not found');
+    log('clickSubscriptionPrice: subscription price option not found');
     return false;
   }
 
   humanLikeClick(el);
-  log('clickKinguinPassPrice: clicked KinguinPass price option');
+  log('clickSubscriptionPrice: clicked subscription price option');
   return true;
 }
 ```
@@ -324,7 +323,7 @@ Object.assign(warningMessage.style, {
 
 The game page handler handles failures gracefully:
 
-1. **KinguinPass button not found** - Returns `false`, logs error, shows failure overlay
+1. **Subscription button not found** - Returns `false`, logs error, shows failure overlay
 2. **Button doesn't become enabled** - Continues anyway (button may already be ready)
 3. **Add to Cart button not found** - Returns `false`, logs error, shows failure overlay
 4. **Glitch detected** - Returns `false`, shows persistent warning, does NOT click button
@@ -332,21 +331,21 @@ The game page handler handles failures gracefully:
 
 ## Console Logging
 
-All actions are logged with the `[KinguinClicker]` prefix:
+All actions are logged with the `[KingsDrop]` prefix:
 
 ```
-[KinguinClicker] Initializing game page handler...
-[KinguinClicker] clickKinguinPassPrice: clicked KinguinPass price option
-[KinguinClicker] selectKinguinPassAndAddToCart: waiting for element to be enabled
-[KinguinClicker] clickAddToCart: clicked Add to Cart button
-[KinguinClicker] selectKinguinPassAndAddToCart: completed successfully
+[KingsDrop] Initializing game page handler...
+[KingsDrop] clickSubscriptionPrice: clicked subscription price option
+[KingsDrop] selectKinguinPassAndAddToCart: waiting for element to be enabled
+[KingsDrop] clickAddToCart: clicked Add to Cart button
+[KingsDrop] selectKinguinPassAndAddToCart: completed successfully
 ```
 
 Or when glitch is detected:
 
 ```
-[KinguinClicker] clickAddToCart: GLITCH DETECTED - Button shows "SUBSCRIBE AND ADD TO CART"
-[KinguinClicker] selectKinguinPassAndAddToCart: failed to click Add to Cart button
+[KingsDrop] clickAddToCart: GLITCH DETECTED - Button shows "SUBSCRIBE AND ADD TO CART"
+[KingsDrop] selectKinguinPassAndAddToCart: failed to click Add to Cart button
 ```
 
 ## Related Documentation

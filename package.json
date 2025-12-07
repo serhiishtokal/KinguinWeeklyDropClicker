@@ -1,7 +1,7 @@
 {
-  "name": "kinguin-clicker",
+  "name": "kinguin-kings-drop",
   "version": "1.0.0",
-  "description": "Tampermonkey script to automate Kinguin.net checkout, game pages, and dashboard",
+  "description": "Tampermonkey script to automate weekly Kinguin King's Drop subscription workflow",
   "main": "src/main.js",
   "type": "module",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "rollup -c --watch --environment BUILD:development",
     "clean": "rimraf dist/"
   },
-  "keywords": ["tampermonkey", "userscript", "kinguin", "automation"],
+  "keywords": ["tampermonkey", "userscript", "kinguin", "automation", "kings-drop", "subscription"],
   "author": "",
   "license": "MIT",
   "devDependencies": {

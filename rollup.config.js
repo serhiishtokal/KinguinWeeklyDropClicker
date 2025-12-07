@@ -8,15 +8,14 @@ const isProduction = process.env.BUILD === 'production';
 
 // Tampermonkey header with version from package.json
 const header = `// ==UserScript==
-// @name         Kinguin Auto-Clicker
-// @namespace    https://github.com/user/kinguin-clicker
+// @name         Kinguin Kings Drop
+// @namespace    https://github.com/user/kinguin-kings-drop
 // @version      ${pkg.version}
-// @description  Automates Kinguin.net checkout, game pages, and dashboard subscriptions
+// @description  Automates weekly Kinguin King's Drop subscription workflow
 // @author       ${pkg.author || 'Anonymous'}
-// @match        https://www.kinguin.net/checkout*
-// @match        https://www.kinguin.net/category/*/product/*
-// @match        https://www.kinguin.net/category/*
-// @match        https://www.kinguin.net/dashboard/subscriptions*
+// @match        *://www.kinguin.net/new-checkout/review*
+// @match        *://www.kinguin.net/category/*
+// @match        *://www.kinguin.net/app/dashboard/subscription*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=kinguin.net
 // @grant        none
 // @run-at       document-idle
@@ -27,9 +26,9 @@ const header = `// ==UserScript==
 export default {
   input: 'src/main.js',
   output: {
-    file: 'dist/kinguin-clicker.user.js',
+    file: 'dist/kinguin-kings-drop.user.js',
     format: 'iife',
-    name: 'KinguinClicker',
+    name: 'KinguinKingsDrop',
     banner: header,
     sourcemap: !isProduction ? 'inline' : false,
   },
