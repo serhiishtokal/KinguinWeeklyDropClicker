@@ -115,6 +115,49 @@ export function waitForElement(selector, options = {}) {
 }
 
 /**
+ * Wait for element to appear in DOM using XPath
+ * @param {string} xpath - XPath expression
+ * @param {Object} options - Options
+ * @param {number} options.timeout - Max wait time in ms (default: 10000)
+ * @param {number} options.pollInterval - Polling interval in ms (default: 200)
+ * @param {boolean} options.visible - Wait for visible element (default: true)
+ * @param {Element|Document} options.parent - Parent element context
+ * @returns {Promise<Element|null>}
+ */
+export function waitForXPath(xpath, options = {}) {
+  const { timeout = 10000, pollInterval = 200, visible = true, parent = document } = options;
+
+  return new Promise((resolve) => {
+    const startTime = Date.now();
+
+    const check = () => {
+      const result = document.evaluate(
+        xpath,
+        parent,
+        null,
+        XPathResult.FIRST_ORDERED_NODE_TYPE,
+        null
+      );
+      const el = result.singleNodeValue;
+
+      if (el && (!visible || isVisible(el))) {
+        resolve(el);
+        return;
+      }
+
+      if (Date.now() - startTime >= timeout) {
+        resolve(null);
+        return;
+      }
+
+      setTimeout(check, pollInterval);
+    };
+
+    check();
+  });
+}
+
+/**
  * Wait for element to be enabled (not disabled)
  * @param {string} selector - CSS selector
  * @param {Object} options - Options
