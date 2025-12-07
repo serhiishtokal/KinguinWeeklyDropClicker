@@ -48,6 +48,9 @@ async function setMaxValueForKinguinBalance(value = '999') {
     return false;
   }
 
+  // Scroll the input into view
+  input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
   // Focus on the input with a human-like click approach
   humanLikeClick(input);
   await humanDelay(50, 100);
@@ -158,7 +161,7 @@ async function setAndPay(value = '999', options = {}) {
   if (shouldClick) {
     return await clickPayButton();
   } else {
-    return highlightPayButton();
+    return await highlightPayButton();
   }
 }
 
