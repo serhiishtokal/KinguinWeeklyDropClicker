@@ -80,11 +80,34 @@ export async function humanLikeType(element, text, minDelay = 50, maxDelay = 150
   element.value = '';
   
   for (const char of text) {
-    element.value += char;
+    // Dispatch keydown event BEFORE changing value
+    element.dispatchEvent(new KeyboardEvent('keydown', {
+      key: char,
+      code: `Key${char.toUpperCase()}`,
+      bubbles: true,
+      cancelable: true
+    }));
+    
+    // Use native setter to ensure React/Vue detects the change
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    nativeInputValueSetter.call(element, element.value + char);
+    
+    // Dispatch input event (bubbles for framework detection)
     element.dispatchEvent(new Event('input', { bubbles: true }));
+    
+    // Dispatch keyup event AFTER value change
+    element.dispatchEvent(new KeyboardEvent('keyup', {
+      key: char,
+      code: `Key${char.toUpperCase()}`,
+      bubbles: true,
+      cancelable: true
+    }));
+    
+    // Random delay between keystrokes for human-like typing
     await humanDelay(minDelay, maxDelay);
   }
   
+  // Final change event
   element.dispatchEvent(new Event('change', { bubbles: true }));
   return true;
 }

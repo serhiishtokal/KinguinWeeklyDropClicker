@@ -174,8 +174,8 @@ export async function initCheckoutPage() {
     autoRemove: 2000,
   });
 
-  // Wait a bit for page to stabilize
-  await sleep(500);
+  // Wait for page framework to fully hydrate before interacting
+  await sleep(2000);
 
   // Execute the main flow
   const success = await setAndPay('999', { shouldClick: false });
