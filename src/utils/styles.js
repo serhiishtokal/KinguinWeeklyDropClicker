@@ -115,11 +115,14 @@ export function highlightElement(element, type = 'attention', duration = 0) {
  */
 export function createOverlay(text, options = {}) {
   const {
-    position = 'bottom-right',
+    position = 'top-left',
     backgroundColor = 'rgba(0, 0, 0, 0.85)',
     color = '#fff',
     autoRemove = 0,
   } = options;
+  
+  // Log to console
+  console.log('[KinguinClicker]', text);
   
   // Remove existing overlay
   const existing = document.getElementById('kings-drop-overlay');

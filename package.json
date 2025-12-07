@@ -1,6 +1,6 @@
 {
   "name": "kinguin-kings-drop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tampermonkey script to automate weekly Kinguin King's Drop subscription workflow",
   "main": "src/main.js",
   "type": "module",

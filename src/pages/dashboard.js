@@ -107,7 +107,6 @@ export async function initDashboardPage() {
   log('Initializing dashboard page handler...');
 
   createOverlay('KinguinClicker: Dashboard - Automating...', {
-    position: 'top-left',
     backgroundColor: 'rgba(76, 175, 80, 0.9)',
     autoRemove: 2000,
   });
@@ -120,13 +119,11 @@ export async function initDashboardPage() {
 
   if (success) {
     createOverlay('KinguinClicker: Subscription Activated!', {
-      position: 'top-left',
       backgroundColor: 'rgba(76, 175, 80, 0.9)',
       autoRemove: 3000,
     });
   } else {
     createOverlay('KinguinClicker: Could not find subscription elements', {
-      position: 'top-left',
       backgroundColor: 'rgba(244, 67, 54, 0.9)',
       autoRemove: 5000,
     });

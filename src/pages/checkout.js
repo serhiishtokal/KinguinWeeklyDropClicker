@@ -3,7 +3,7 @@
  * Automates balance input and highlights pay button
  */
 
-import { waitForElement, $, log } from '../utils/dom.js';
+import { waitForElement, log } from '../utils/dom.js';
 import { humanLikeClick, humanLikeType, humanDelay, sleep } from '../utils/simulation.js';
 import { highlightElement, injectStyles, createOverlay } from '../utils/styles.js';
 
@@ -42,7 +42,7 @@ const PAY_BUTTON_PULSE_CSS = `
  * @returns {Promise<boolean>} Success status
  */
 async function setMaxValueForKinguinBalance(value = '999') {
-  const input = $(SELECTORS.BALANCE_INPUT);
+  const input = await waitForElement(SELECTORS.BALANCE_INPUT, { timeout: 5000 });
   if (!input) {
     log('setMaxValueForKinguinBalance: input not found', SELECTORS.BALANCE_INPUT);
     return false;
@@ -74,7 +74,7 @@ async function setMaxValueForKinguinBalance(value = '999') {
  * @returns {Promise<boolean>} Success status
  */
 async function clickPayButton() {
-  const button = $(SELECTORS.PAY_BUTTON);
+  const button = await waitForElement(SELECTORS.PAY_BUTTON, { timeout: 5000 });
   if (!button) {
     log('clickPayButton: pay button not found', SELECTORS.PAY_BUTTON);
     return false;
@@ -88,10 +88,10 @@ async function clickPayButton() {
 /**
  * Highlight the pay button with enhanced visibility
  * Creates a highly visible pulsing red/yellow effect
- * @returns {boolean} Success status
+ * @returns {Promise<boolean>} Success status
  */
-function highlightPayButton() {
-  const button = $(SELECTORS.PAY_BUTTON);
+async function highlightPayButton() {
+  const button = await waitForElement(SELECTORS.PAY_BUTTON, { timeout: 5000 });
   if (!button) {
     log('highlightPayButton: pay button not found', SELECTORS.PAY_BUTTON);
     return false;
