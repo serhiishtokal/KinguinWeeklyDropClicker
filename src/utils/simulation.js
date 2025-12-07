@@ -44,10 +44,13 @@ export function humanLikeClick(element) {
   const centerX = rect.left + rect.width / 2;
   const centerY = rect.top + rect.height / 2;
   
+  // Use unsafeWindow when available (Tampermonkey sandboxed mode) for MouseEvent view property
+  const viewWindow = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
+  
   const eventOptions = {
     bubbles: true,
     cancelable: true,
-    view: window,
+    view: viewWindow,
     clientX: centerX,
     clientY: centerY,
   };

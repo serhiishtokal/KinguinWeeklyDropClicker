@@ -23,6 +23,7 @@ const header = `// ==UserScript==
 // @grant        GM_setValue
 // @grant        GM_registerMenuCommand
 // @grant        GM_unregisterMenuCommand
+// @grant        unsafeWindow
 // @run-at       document-idle
 // ==/UserScript==
 

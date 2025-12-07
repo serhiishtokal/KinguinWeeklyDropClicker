@@ -3,7 +3,7 @@
  * Automates KinguinPass selection and Add to Cart functionality
  */
 
-import { $, $x, waitForElement, log } from '../utils/dom.js';
+import { $, $x, waitForElement, waitForXPath, log } from '../utils/dom.js';
 import { humanLikeClick, humanDelay, sleep } from '../utils/simulation.js';
 import { highlightElement, injectStyles, createOverlay } from '../utils/styles.js';
 
@@ -52,9 +52,15 @@ async function waitForXPathElementEnabled(xpath, timeout = 5000, interval = 50) 
  * @returns {Promise<boolean>} Success status
  */
 async function clickKinguinPassPrice() {
-  const el = $x(SELECTORS.KINGUIN_PASS_PRICE_XPATH);
+  // Wait for the KinguinPass price button to appear in the DOM
+  const el = await waitForXPath(SELECTORS.KINGUIN_PASS_PRICE_XPATH, {
+    timeout: 10000,
+    pollInterval: 200,
+    visible: true
+  });
+  
   if (!el) {
-    log('clickKinguinPassPrice: KinguinPass price option not found', SELECTORS.KINGUIN_PASS_PRICE_XPATH);
+    log('clickKinguinPassPrice: KinguinPass price option not found after waiting', SELECTORS.KINGUIN_PASS_PRICE_XPATH);
     return false;
   }
 
@@ -110,16 +116,23 @@ function displayGlitchWarning(button, parentContainer) {
  * @returns {Promise<boolean>} Success status
  */
 async function clickAddToCart() {
-  // Try CSS selector with data-cy attribute first (more reliable)
-  let el = $(SELECTORS.ADD_TO_CART_CSS);
+  // Wait for the Add to Cart button to appear - try CSS selector first (more reliable)
+  let el = await waitForElement(SELECTORS.ADD_TO_CART_CSS, {
+    timeout: 5000,
+    visible: true
+  });
 
   // Fallback to XPath if CSS selector doesn't find it
   if (!el) {
-    el = $x(SELECTORS.ADD_TO_CART_XPATH);
+    el = await waitForXPath(SELECTORS.ADD_TO_CART_XPATH, {
+      timeout: 5000,
+      pollInterval: 200,
+      visible: true
+    });
   }
 
   if (!el) {
-    log('clickAddToCart: Add to Cart button not found', {
+    log('clickAddToCart: Add to Cart button not found after waiting', {
       selector: SELECTORS.ADD_TO_CART_CSS,
       xpath: SELECTORS.ADD_TO_CART_XPATH,
     });
